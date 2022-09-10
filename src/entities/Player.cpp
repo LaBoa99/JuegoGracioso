@@ -1,13 +1,23 @@
-#include "Player.hpp"
-#include "Entity.hpp"
 #include <SFML/Graphics.hpp>
 
-Player::Player() : Entity(100, 100, "Player")
+#include "Player.hpp"
+#include "Entity.hpp"
+#include "ResourceHolder.hpp"
+#include "Textures.hpp"
+
+
+Player::Player() : Entity(200, 100, "Player")
 {
-    if (!Entity::mTexture.loadFromFile("./resources/sprites/John.png")) {
-        std::cout << "No se pudo cargar la textura" << std::flush;
+    std::cout<< "Creando usuario " << std::endl;
+    ResourceHolder<sf::Texture, Textures::ID> resourceHolder;
+    try{
+        resourceHolder.load(Textures::John, "./resources/sprites/John.png");
+
+    } catch(std::runtime_error& e){
+        std::cout <<"Exception: " << e.what() << std::endl;
     }
-    Entity::mSprite.setTexture(this->mTexture);
+
+    Entity::mSprite.setTexture(resourceHolder.get(Textures::John));
     Entity::mSprite.setPosition(100.f, 100.f);
 }
 Player* Player::instance = nullptr;
@@ -20,19 +30,17 @@ Player* Player::getInstance(){
 
 void Player::update(sf::Time &deltaTime) {
     sf::Vector2f movement(0.f, 0.f);
-    // son pulsaciones del teclado (cuando se indica el movimiento) osea que esto aplica una aceleracion
-    // W arriba
-    if (this->edges[0]) {
-        movement.y -= Entity::addVelocity(true);
-    }
-    // D derecha
-    if (this->edges[1]) movement.x += 10;
-    // S abajo
-    if (this->edges[2]) {
-       movement.y += Entity::reduceVelocity(true);
-    }
-    // A izquierda
-    if (this->edges[3]) movement.x -= 10;
+    // W A S D
+    this->
+    std::cout << Entity::speed << std::endl;
+    if(this->edges[0])
+        movement.y -= Entity::speed ;
+    if(this->edges[1])
+        movement.y  += this->speed;
+    if(this->edges[2])
+        movement.x -= this->speed;
+    if(this->edges[3])
+        movement.x -= this->speed;
 
     Entity::mSprite.move(movement * deltaTime.asSeconds());
 }
@@ -44,17 +52,17 @@ void Player::draw() {
 void Player::handlePlayerInputPress(sf::Keyboard::Key key){
     // Se mantiene la aceleracion, la acelearcion puede cambiar de direccion
     if (key == sf::Keyboard::W) this->edges[0] = true;
-    if (key == sf::Keyboard::D) this->edges[1] = true;
+    if (key == sf::Keyboard::A) this->edges[1] = true;
     if (key == sf::Keyboard::S) this->edges[2] = true;
-    if (key == sf::Keyboard::A) this->edges[3] = true;
+    if (key == sf::Keyboard::D) this->edges[3] = true;
 }
 
 void Player::handlePlayerInputRelease(sf::Keyboard::Key key){
     // Se disminuye la aceleracion
     if (key == sf::Keyboard::W) this->edges[0] = false;
-    if (key == sf::Keyboard::D) this->edges[1] = false;
+    if (key == sf::Keyboard::A) this->edges[1] = false;
     if (key == sf::Keyboard::S) this->edges[2] = false;
-    if (key == sf::Keyboard::A) this->edges[3] = false;
+    if (key == sf::Keyboard::D) this->edges[3] = false;
 }
 
 void Player::move(){

@@ -7,7 +7,7 @@
 class Entity : public IObject
 {
     public:
-        Entity(float speed = 100, float hp = 100, std::string = "Entity") : IObject(), mTexture(), mSprite() {};
+        Entity(float speed = 200, float hp = 100, std::string = "Entity") : IObject(), mTexture(), mSprite() {};
         virtual ~Entity() {};
 
         //Functions
@@ -36,7 +36,7 @@ class Entity : public IObject
         //Getters
         inline sf::Sprite getSprite() { return this->mSprite; }
 
-    protected:
+    public:
         float speed, velocity = 0, acceleration = 5;
         float MAX_VEL = 500, MAX_ACCELERATION = 10;
         int hp;

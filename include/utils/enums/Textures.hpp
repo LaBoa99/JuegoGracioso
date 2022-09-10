@@ -4,7 +4,13 @@
 
 class Textures
 {
-    enum ID { Landscape, John, Missile };
+    public:
+    enum ID
+    {
+        Landscape,
+        John,
+        Missile
+    };
 };
 
 #endif // TEXTURES_HPP

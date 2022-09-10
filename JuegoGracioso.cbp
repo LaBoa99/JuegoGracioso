@@ -59,6 +59,7 @@
 			<Add directory="C:/SFML-2.5.1/lib" />
 		</Linker>
 		<Unit filename="include/core/ResourceHolder.hpp" />
+		<Unit filename="include/core/ResourceHolder.inl" />
 		<Unit filename="include/core/game.hpp" />
 		<Unit filename="include/entities/Player.hpp" />
 		<Unit filename="include/utils/enums/Textures.hpp" />
@@ -66,7 +67,6 @@
 		<Unit filename="include/utils/interfaces/IObject.hpp" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/entities/Player.cpp" />
-		<Unit filename="src/features/ResourceHolder.cpp" />
 		<Unit filename="src/game.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
